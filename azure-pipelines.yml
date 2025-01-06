@@ -3,24 +3,17 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-stages:
-- stage: Build
-  jobs:
-    - job: firstjob
-      steps:
-      - bash: ls -R $(Build.ArtifactStagingDirectory)
-      - task: CopyFiles@2
-        inputs:
-          SourceFolder: '$(System.DefaultWorkingDirectory)'
-          Contents: |
-           ** **/*.yml
-           **/*.java
-          TargetFolder: '$(Build.ArtifactStagingDirectory)'
-      - bash: ls -R $(Build.ArtifactStagingDirectory)
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: 'drop'
-          publishLocation: 'Container'
+jobs:
+- job: job1
+  steps:
+  - script: echo Job1 - Hello, world! Changed
+    displayName: 'Run a one-line script'
 
-
+  - script: |
+      echo Add other tasks to build, test, and deploy your project.
+      echo See https://aka.ms/yaml
+    displayName: 'Run a multi-line scripts'
+- job: job2
+  steps:
+  - script: echo Job2
+    displayName: 'Run a one-line script'
